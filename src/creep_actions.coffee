@@ -13,6 +13,15 @@ harvest_closest_source = (creep) ->
   creep.harvest(closest_source)
 
 
+attack_hostile = (creep, hostile, hostile_type) ->
+  if hostile != null
+    creep.memory.attacking = "#{hostile_type} at #{hostile.pos} of " +
+      "#{hostile.owner.username}"
+    creep.moveTo(hostile)
+    creep.attack(hostile)
+    return true
+
+
 run_creep_actions = () ->
   for _, creep of Game.creeps
     if creep.getActiveBodyparts(Game.HEAL) > 0
@@ -26,13 +35,13 @@ run_creep_actions = () ->
       creep.heal(creep_to_heal)
       continue
     if creep.getActiveBodyparts(Game.ATTACK) > 0
-      closest_hostile = creep.pos.findNearest(Game.HOSTILE_CREEPS)
-      if closest_hostile != null
-        LOG("#{creep.name} attacking creep of " +
-            "'#{closest_hostile.owner.username}' at #{closest_hostile.pos}")
-        creep.moveTo(closest_hostile)
-        creep.attack(closest_hostile)
+      hostile = creep.pos.findNearest(Game.HOSTILE_CREEPS)
+      if attack_hostile(creep, hostile, "creep")
         continue
+      hostile = creep.pos.findNearest(Game.HOSTILE_SPAWNS)
+      if attack_hostile(creep, hostile, "spawn")
+        continue
+      delete creep.memory.attacking
     if creep.memory.role == 'harvester'
       if creep.energy >= creep.energyCapacity
         return_to_closest_spawn(creep)
