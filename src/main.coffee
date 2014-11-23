@@ -1,5 +1,13 @@
 LOG = console.log
 
+
+# Version is added by our build script, so we can get console output of changes
+VERSION = "insert_version_here"
+if Memory.version != VERSION
+  LOG("New script version (#{VERSION})!")
+  Memory.version = VERSION
+
+
 WORKER_ATTRIBUTES = [Game.MOVE, Game.CARRY, Game.WORK]
 WARRIOR_ATTRIBUTES = [Game.TOUGH, Game.TOUGH, Game.TOUGH, Game.ATTACK, Game.MOVE]
 HEALER_ATTRIBUTES = [Game.TOUGH, Game.HEAL, Game.MOVE, Game.MOVE]
