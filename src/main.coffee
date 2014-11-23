@@ -1,6 +1,5 @@
-LOG = console.log
-
 #include spawner.coffee
+#include util.coffee
 #include version.coffee
 
 for _, spawn of Game.spawns
