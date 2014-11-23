@@ -7,3 +7,9 @@ if Memory.version != VERSION
   Memory.version = VERSION
 
 
+# Garbage collect any memory of entities that have expired
+clear_named_entities = (entity_type) ->
+  for entity of Memory[entity_type]
+    if not Game[entity_type][entity]
+      delete Memory[entity_type][entity]
+(clear_named_entities(e) for e in ["creeps", "spawns"])
