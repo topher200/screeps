@@ -1,3 +1,8 @@
+WORKER_ATTRIBUTES = [Game.MOVE, Game.CARRY, Game.WORK]
+WARRIOR_ATTRIBUTES = [Game.TOUGH, Game.TOUGH, Game.TOUGH, Game.ATTACK, Game.MOVE]
+HEALER_ATTRIBUTES = [Game.TOUGH, Game.HEAL, Game.MOVE, Game.MOVE]
+
+
 spawn_creep = (spawn) ->
   if spawn.spawning
     return
