@@ -1,6 +1,5 @@
 #include spawner.coffee
 #include util.coffee
-#include version.coffee
 
 for _, spawn of Game.spawns
   spawn_creep(spawn)
