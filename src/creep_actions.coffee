@@ -22,6 +22,12 @@ attack_hostile = (creep, hostile, hostile_type) ->
     return true
 
 
+set_job = (creep, job) ->
+  if creep.memory.job != job
+    LOG("#{creep.name} '#{job}' at #{creep.pos}")
+  creep.memory.job = job
+
+
 run_creep_actions = () ->
   for _, creep of Game.creeps
     if creep.getActiveBodyparts(Game.HEAL) > 0
