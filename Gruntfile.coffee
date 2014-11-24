@@ -17,10 +17,14 @@ module.exports = (grunt) ->
           'generated_bundle.js': 'generated_bundle.js'
         options:
           replacements: [
-            pattern: "insert_version_here"
-            replacement: Date.now()
-          ]
-        
+            {
+              pattern: "insert_version_here"
+              replacement: Date.now()
+            }, {
+              pattern: "insert_mode_here"
+              replacement: "<%= mode %>"
+            }
+          ],
   })
 
   # Load plugins
@@ -28,4 +32,8 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks('grunt-string-replace')
 
   # Tasks runners
-  grunt.registerTask 'default', ['coffee', 'string-replace']
+  grunt.registerTask('default', "Takes a --mode to set behavior", do () ->
+    mode = grunt.option('mode') ? "default_mode"
+    grunt.config.set('mode', mode)
+    ['coffee', 'string-replace']
+  )
