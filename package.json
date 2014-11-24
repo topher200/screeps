@@ -5,6 +5,7 @@
     "url": "https://github.com/topher200/screeps"
   },
   "devDependencies": {
-    "grunt": "^0.4.5"
+    "grunt": "^0.4.5",
+    "grunt-contrib-coffee": "^0.12.0"
   }
 }
