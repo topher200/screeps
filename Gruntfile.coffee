@@ -2,10 +2,11 @@ module.exports = (grunt) ->
   # Project configuration.
   grunt.initConfig
     coffee:
-      options:
-        join: true
-      files:
-        'generated_bundle.js': 'src/*.coffee'
+      compile:
+        options:
+          join: true
+        files:
+          'generated_bundle.js': 'src/*.coffee'
 
   # Load plugins
   grunt.loadNpmTasks 'grunt-contrib-coffee'
