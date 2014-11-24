@@ -1,6 +1,3 @@
-#include util.coffee
-
-
 set_job = (creep, job) ->
   if creep.memory.job != job
     LOG(" job: #{creep.name} '#{job}' at #{creep.pos}")
