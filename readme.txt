@@ -5,12 +5,14 @@ CoffeeScript based controller for MMO RTS screeps.com.
 
 == Running the Code ==
 
- - Use build.bat to generate a monolithic JavaScript controller file
- - build.bat requires Windows with Cygwin to run, but could be easily modified
-   to run on Linux
- - Compiling the JavaScript requires CoffeeScript with coffee-stir
- - build.bat creates a .js file, as well as copying the JavaScript to the
-   clipboard. Paste it into the web app.
+Use grunt to generate a monolithic JavaScript controller file.
+
+ - run 'npm install' to install dependences
+ - Compile with 'grunt'
+  - (optional): Set a behavior mode with 'grunt --mode pacifist'. Defaults
+    to "default_mode".
+ - Use copy_to_clipboard.bat to copy the generated .js file. Paste it into the
+   web app.
    - This will be modified when the servers are up and running, but right now
      the only place to play with the screeps is in the online sandbox.
 
