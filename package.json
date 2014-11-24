@@ -1,0 +1,10 @@
+{
+  "name": "screeps",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/topher200/screeps"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5"
+  }
+}
