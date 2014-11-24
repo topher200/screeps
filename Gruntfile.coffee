@@ -1,6 +1,6 @@
 module.exports = (grunt) ->
   # Project configuration.
-  grunt.initConfig
+  grunt.initConfig({
     coffee:
       compile:
         options:
@@ -12,7 +12,7 @@ module.exports = (grunt) ->
             'src/main.coffee'
           ]
     'string-replace':
-      version:
+      dist:
         files:
           'generated_bundle.js': 'generated_bundle.js'
         options:
@@ -21,10 +21,11 @@ module.exports = (grunt) ->
             replacement: Date.now()
           ]
         
+  })
 
   # Load plugins
-  grunt.loadNpmTasks 'grunt-contrib-coffee'
-  grunt.loadNpmTasks 'grunt-string-replace'
+  grunt.loadNpmTasks('grunt-contrib-coffee')
+  grunt.loadNpmTasks('grunt-string-replace')
 
   # Tasks runners
   grunt.registerTask 'default', ['coffee', 'string-replace']
