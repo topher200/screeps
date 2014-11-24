@@ -14,6 +14,7 @@ module.exports = (grunt) ->
 
   # Load plugins
   grunt.loadNpmTasks 'grunt-contrib-coffee'
+  grunt.loadNpmTasks 'grunt-string-replace'
 
   # Tasks runners
   grunt.registerTask 'default', ['coffee']
