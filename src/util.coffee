@@ -13,3 +13,13 @@ clear_named_entities = (entity_type) ->
     if not Game[entity_type][entity]
       delete Memory[entity_type][entity]
 (clear_named_entities(e) for e in ["creeps", "spawns"])
+
+
+# Different modes describe different creep actions
+default_mode = {
+  priority: 'warriors', 'healers', 'workers'
+}
+player_1 = default_mode
+player_2 = default_mode
+# sed replaced by build script
+MODE = insert_mode_here
