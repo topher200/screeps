@@ -11,10 +11,20 @@ module.exports = (grunt) ->
             'src/*/*.coffee',
             'src/main.coffee'
           ]
+    'string-replace':
+      version:
+        files:
+          'generated_bundle.js': 'generated_bundle.js'
+        options:
+          replacements: [
+            pattern: "insert_version_here"
+            replacement: Date.now()
+          ]
+        
 
   # Load plugins
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-string-replace'
 
   # Tasks runners
-  grunt.registerTask 'default', ['coffee']
+  grunt.registerTask 'default', ['coffee', 'string-replace']
