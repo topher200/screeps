@@ -17,9 +17,12 @@ clear_named_entities = (entity_type) ->
 
 # Different modes describe different creep actions
 default_mode = {
-  priority: 'warriors', 'healers', 'workers'
+  priority: ['warriors', 'healers', 'workers']
+}
+pacifist = {
+  priority: ['workers']
 }
 player_1 = default_mode
-player_2 = default_mode
+player_2 = pacifist
 # sed replaced by build script
 MODE = insert_mode_here
