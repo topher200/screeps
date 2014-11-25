@@ -65,7 +65,7 @@ smart_attack = (creep) ->
   if attack_buildings(creep)
     return
   delete creep.memory.attacking
-  return_to_base(creep)
+  return_to_closest_spawn(creep)
 
 no_attack = (creep) ->
   if run_from_battle(creep)
