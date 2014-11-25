@@ -40,8 +40,8 @@ chill_at_base =  (creep) ->
 
 
 run_from_battle = (creep) ->
-  # Run from battle when more than 75% hurt
-  if creep.hits > creep.hitsMax * .75
+  # Run from battle when all our armor is gone
+  if creep.getActiveBodyparts(Game.TOUGH) > 0
     return false
   set_job(creep, 'run from battle')
   # TODO
