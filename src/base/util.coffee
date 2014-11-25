@@ -16,4 +16,5 @@ clear_named_entities = (entity_type) ->
 
 
 # Set roles constants
-[CREEP, WARRIOR, HEALER, HARVESTER] = [0..3]
+[CREEP, WARRIOR, HEALER, HARVESTER] =
+  ["creep", "warrior", "healer", "harvester"]
