@@ -100,7 +100,8 @@ run_creep_actions = () ->
       continue
 
     if creep.getActiveBodyparts(Game.HEAL) > 0
-      hurt_creeps = (c for _, c of Game.creeps when c != creep and c.hits < c.hitsMax)
+      hurt_creeps = (c for _, c of Game.creeps when
+        c != creep and c.hits < c.hitsMax)
       if hurt_creeps.length == 0
         creep.moveTo(closest_spawn(creep))
         continue
