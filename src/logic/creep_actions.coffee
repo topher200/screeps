@@ -72,19 +72,45 @@ no_attack = (creep) ->
     return
   chill_at_base(creep)
 
+### Healer meta actions ###
+
+smart_heal = (creep) ->
+  if creep.getActiveBodyparts(Game.HEAL) < 0
+    return false
+  hurt_creeps = (c for _, c of Game.creeps when c != creep and
+    c.hits < c.hitsMax)
+  if hurt_creeps.length == 0
+    creep.moveTo(closest_spawn(creep))
+    return
+  creep_to_heal = hurt_creeps[0]
+  set_job(creep, "healing #{creep_to_heal.name}")
+  creep.moveTo(creep_to_heal)
+  creep.heal(creep_to_heal)
+
+### Harvester meta actions ###
+
+smart_harvest = (creep) ->
+  if creep.energy >= creep.energyCapacity
+    return_to_closest_spawn(creep)
+    creep.transferEnergy(closest_spawn(creep))
+  else
+    harvest_closest_source(creep)
+
 ### ###
 
 
 # Different modes describe different creep actions
 default_mode = {
   WARRIOR: smart_attack
+  HEALER: smart_heal
+  HARVESTER: smart_harvest
 }
-pacifist = {
-  WARRIOR: no_attack
-}
-statue = {
-  CREEP: do_nothing
-}
+
+pacifist = default_mode
+pacifist[WARRIOR] = no_attack
+
+statue = default_mode
+statue[CREEP] = do_nothing
 
 player_1 = default_mode
 player_2 = default_mode
@@ -98,24 +124,14 @@ run_creep_actions = () ->
     if ACTIONS_MODE.CREEP?
       ACTIONS_MODE.CREEP(creep)
       continue
-
-    if creep.getActiveBodyparts(Game.HEAL) > 0
-      hurt_creeps = (c for _, c of Game.creeps when c != creep and
-        c.hits < c.hitsMax)
-      if hurt_creeps.length == 0
-        creep.moveTo(closest_spawn(creep))
+    
+    if creep.memory.role == HEALER
+      if ACTIONS_MODE.HEALER(creep)
         continue
-      creep_to_heal = hurt_creeps[0]
-      set_job(creep, "healing #{creep_to_heal.name}")
-      creep.moveTo(creep_to_heal)
-      creep.heal(creep_to_heal)
-      continue
     if creep.memory.role == WARRIOR
-      ACTIONS_MODE.WARRIOR(creep)
-      continue
+      if ACTIONS_MODE.WARRIOR(creep)
+        continue
     if creep.memory.role == HARVESTER
-      if creep.energy >= creep.energyCapacity
-        return_to_closest_spawn(creep)
-        creep.transferEnergy(closest_spawn(creep))
-      else
-        harvest_closest_source(creep)
+      if ACTIONS_MODE.HARVESTER(creep)
+        continue
+    LOG("Couldn't find a job for #{creep.name}")
