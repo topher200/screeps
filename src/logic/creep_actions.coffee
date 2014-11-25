@@ -77,7 +77,7 @@ no_attack = (creep) ->
 
 run_creep_actions = () ->
   for _, creep of Game.creeps
-    # Do we have a default mode for all creeps?
+    # Is there a mode set for all creeps?
     if MODE.creeps?
       MODE.creeps()
 
