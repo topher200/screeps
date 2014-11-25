@@ -33,7 +33,7 @@ module.exports = (grunt) ->
 
   # Tasks runners
   grunt.registerTask('default', "Takes a --mode to set behavior", do () ->
-    mode = grunt.option('mode') ? "default_mode"
+    mode = grunt.option('mode') ? "player_1"
     grunt.config.set('mode', mode)
     ['coffee', 'string-replace']
   )
