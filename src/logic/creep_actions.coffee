@@ -59,18 +59,20 @@ do_nothing = (creep) ->
 smart_attack = (creep) ->
   if run_from_battle(creep)
     delete creep.memory.attacking
-    return
+    return true
   if attack_enemy(creep)
-    return
+    return true
   if attack_buildings(creep)
-    return
+    return true
   delete creep.memory.attacking
   return_to_closest_spawn(creep)
+  return true
 
 no_attack = (creep) ->
   if run_from_battle(creep)
-    return
+    return true
   chill_at_base(creep)
+  return true
 
 ### Healer meta actions ###
 
@@ -81,11 +83,12 @@ smart_heal = (creep) ->
     c.hits < c.hitsMax)
   if hurt_creeps.length == 0
     creep.moveTo(closest_spawn(creep))
-    return
+    return false
   creep_to_heal = hurt_creeps[0]
   set_job(creep, "healing #{creep_to_heal.name}")
   creep.moveTo(creep_to_heal)
   creep.heal(creep_to_heal)
+  return true
 
 ### Harvester meta actions ###
 
@@ -93,8 +96,9 @@ smart_harvest = (creep) ->
   if creep.energy >= creep.energyCapacity
     return_to_closest_spawn(creep)
     creep.transferEnergy(closest_spawn(creep))
-  else
-    harvest_closest_source(creep)
+    return true
+  harvest_closest_source(creep)
+  return true
 
 ### ###
 
