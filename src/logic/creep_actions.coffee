@@ -77,17 +77,17 @@ no_attack = (creep) ->
 
 # Different modes describe different creep actions
 default_mode = {
-  "warrior": smart_attack
+  WARRIOR: smart_attack
 }
 pacifist = {
-  "warrior": no_attack
+  WARRIOR: no_attack
 }
 statue = {
-  "creeps": do_nothing
+  CREEP: do_nothing
 }
 
 player_1 = default_mode
-player_2 = pacifist
+player_2 = default_mode
 # sed replaced by build script
 MODE = insert_mode_here
 
@@ -95,8 +95,8 @@ MODE = insert_mode_here
 run_creep_actions = () ->
   for _, creep of Game.creeps
     # Is there a mode set for all creeps?
-    if MODE.creeps?
-      MODE.creeps(creep)
+    if MODE.CREEP?
+      MODE.CREEP(creep)
       continue
 
     if creep.getActiveBodyparts(Game.HEAL) > 0
@@ -109,10 +109,10 @@ run_creep_actions = () ->
       creep.moveTo(creep_to_heal)
       creep.heal(creep_to_heal)
       continue
-    if creep.memory.role == 'warrior'
-      MODE.warrior(creep)
+    if creep.memory.role == WARRIOR
+      MODE.WARRIOR(creep)
       continue
-    if creep.memory.role == 'harvester'
+    if creep.memory.role == HARVESTER
       if creep.energy >= creep.energyCapacity
         return_to_closest_spawn(creep)
         creep.transferEnergy(closest_spawn(creep))

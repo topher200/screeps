@@ -13,3 +13,7 @@ clear_named_entities = (entity_type) ->
     if not Game[entity_type][entity]
       delete Memory[entity_type][entity]
 (clear_named_entities(e) for e in ["creeps", "spawns"])
+
+
+# Set roles constants
+[CREEP, WARRIOR, HEALER, HARVESTER] = [0..3]
