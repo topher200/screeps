@@ -19,7 +19,8 @@ harvest_closest_source = (creep) ->
 
 attack_hostile = (creep, hostile, hostile_type) ->
   if hostile != null
-    set_job(creep, "attack #{hostile_type} of #{hostile.owner.username} at #{hostile.pos}")
+    set_job(creep,
+      "attack #{hostile_type} of #{hostile.owner.username} at #{hostile.pos}")
     creep.moveTo(hostile)
     creep.attack(hostile)
     return true
