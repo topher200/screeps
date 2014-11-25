@@ -25,16 +25,6 @@ attack_hostile = (creep, hostile, hostile_type) ->
     return true
 
 
-run_from_battle = (creep) ->
-  # Run from battle when more than 75% hurt
-  if creep.hits > creep.hitsMax * .75
-    return false
-  set_job(creep, 'run from battle')
-  # TODO
-  return_to_base(creep)
-  return true
-
-
 attack_enemy = (creep) ->
   hostile = creep.pos.findNearest(Game.HOSTILE_CREEPS)
   return attack_hostile(creep, hostile, "creep")
@@ -45,11 +35,28 @@ attack_buildings = (creep) ->
   return attack_hostile(creep, hostile, "spawn")
 
 
-return_to_base =  (creep) ->
+chill_at_base =  (creep) ->
   return_to_closest_spawn(creep)
 
 
-do_warrior_actions = (creep) ->
+run_from_battle = (creep) ->
+  # Run from battle when more than 75% hurt
+  if creep.hits > creep.hitsMax * .75
+    return false
+  set_job(creep, 'run from battle')
+  # TODO
+  chill_at_base(creep)
+  return true
+
+
+### Creep meta actions ###
+
+do_nothing = (creep) ->
+  return
+
+### Warrior meta actions ###
+
+smart_attack = (creep) ->
   if run_from_battle(creep)
     delete creep.memory.attacking
     return
@@ -58,12 +65,22 @@ do_warrior_actions = (creep) ->
   if attack_buildings(creep)
     return
   delete creep.memory.attacking
-  if chill_at_base(creep)
+  return_to_base(creep)
+
+no_attack = (creep) ->
+  if run_from_battle(creep)
     return
+  chill_at_base(creep)
+
+### ###
 
 
 run_creep_actions = () ->
   for _, creep of Game.creeps
+    # Do we have a default mode for all creeps?
+    if MODE.creeps?
+      MODE.creeps()
+
     if creep.getActiveBodyparts(Game.HEAL) > 0
       hurt_creeps = (c for _, c of Game.creeps when c != creep and c.hits < c.hitsMax)
       if hurt_creeps.length == 0
@@ -75,7 +92,7 @@ run_creep_actions = () ->
       creep.heal(creep_to_heal)
       continue
     if creep.memory.role == 'warrior'
-      do_warrior_actions(creep)
+      MODE.warrior()
       continue
     if creep.memory.role == 'harvester'
       if creep.energy >= creep.energyCapacity

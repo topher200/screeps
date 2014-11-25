@@ -17,10 +17,13 @@ clear_named_entities = (entity_type) ->
 
 # Different modes describe different creep actions
 default_mode = {
-  priority: ['warriors', 'healers', 'workers']
+  warrior: smart_attack
 }
 pacifist = {
-  priority: ['workers']
+  warrior: no_attack
+}
+statue = {
+  creeps: do_nothing
 }
 player_1 = default_mode
 player_2 = pacifist
