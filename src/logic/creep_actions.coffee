@@ -89,14 +89,14 @@ statue = {
 player_1 = default_mode
 player_2 = default_mode
 # sed replaced by build script
-MODE = insert_mode_here
+ACTIONS_MODE = insert_mode_here
 
 
 run_creep_actions = () ->
   for _, creep of Game.creeps
     # Is there a mode set for all creeps?
-    if MODE.CREEP?
-      MODE.CREEP(creep)
+    if ACTIONS_MODE.CREEP?
+      ACTIONS_MODE.CREEP(creep)
       continue
 
     if creep.getActiveBodyparts(Game.HEAL) > 0
@@ -111,7 +111,7 @@ run_creep_actions = () ->
       creep.heal(creep_to_heal)
       continue
     if creep.memory.role == WARRIOR
-      MODE.WARRIOR(creep)
+      ACTIONS_MODE.WARRIOR(creep)
       continue
     if creep.memory.role == HARVESTER
       if creep.energy >= creep.energyCapacity
